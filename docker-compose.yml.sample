@@ -1,0 +1,46 @@
+###### xshok-server-redirector
+  xshok-server-redirector:
+    image: extremeshok/server-redirector:latest
+    environment:
+      - TZ=${TZ:-UTC}
+      - TARGET=11.11.11.11
+    restart: always
+    ports:
+      ### EMAIL
+      - 25:25
+      - 465:465
+      - 587:587
+      - 110:110
+      - 995:995
+      - 143:143
+      - 993:993
+      ### NNTP
+      - 119:119
+      - 563:563
+      ### DNS
+      - 53:53
+      ### HTTP
+      - 80:80
+      - 8080:8080
+      - 443:443
+      - 8443:8443
+      - 1080:1080
+      - 3128:3128
+      ### RSYNC
+      - 587:587
+      ### SQL
+      - 3306:3306
+      - 5432:5432
+      - 4333:4333
+      ### Control Panels
+      - 2082:2082
+      - 2083:2083
+      - 10000:10000
+      - 20000:20000
+    sysctls:
+      - net.ipv6.conf.all.disable_ipv6=${SYSCTL_IPV6_DISABLED:-0}
+    networks:
+      network:
+        ipv4_address: ${IPV4_NETWORK:-172.22.1}.210
+        aliases:
+          - redirector

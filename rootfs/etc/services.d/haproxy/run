@@ -1,0 +1,10 @@
+#!/usr/bin/with-contenv sh
+
+while ! bash /xshok-haproxy-init.sh ; do
+  echo "Waiting for init to complete"
+  sleep 5s
+done
+
+#   -W  -- "master-worker mode" (similar to the old "haproxy-systemd-wrapper"; allows for reload via "SIGUSR2")
+#   -db -- disables background mode
+haproxy -W -db -f /etc/haproxy/haproxy.cfg -p /run/haproxy.pid
